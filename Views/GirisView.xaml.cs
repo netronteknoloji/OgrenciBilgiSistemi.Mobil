@@ -55,11 +55,21 @@ namespace OgrenciBilgiSistemi.Mobil.Views
 
                 if (isSuccess)
                 {
+                    // Mobilde admin girişi desteklenmez
+                    if (KullaniciOturum.Rol == 1)
+                    {
+                        await KullaniciOturum.OturumTemizleAsync();
+                        await DisplayAlert("Uyarı", "Bu uygulama yönetici girişi desteklememektedir.", "Tamam");
+                        return;
+                    }
+
                     // "Beni Hatırla" bilgilerini SecureStorage'a kaydet
                     await ManageRememberMeAsync(username, password);
 
-                    // Role göre yönlendirme: Şoför → ServisEkrani, diğerleri → SinifListeView
-                    if (KullaniciOturum.SoforMu)
+                    // Role göre yönlendirme
+                    if (KullaniciOturum.VeliMi)
+                        await Shell.Current.GoToAsync("///VeliAnaSayfaView");
+                    else if (KullaniciOturum.SoforMu)
                         await Shell.Current.GoToAsync("///ServisEkraniView");
                     else
                         await Shell.Current.GoToAsync("///SinifListeView");

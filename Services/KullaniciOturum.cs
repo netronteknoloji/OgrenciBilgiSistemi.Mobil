@@ -11,6 +11,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
         private static string _adSoyad = "Kullanıcı";
         private static int? _birimId;
         private static int? _servisId;
+        private static int? _veliId;
         private static int _rol;
         private static string _yetkiToken;
         private static bool _yuklendi;
@@ -26,6 +27,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
         private const string AnahtarAdSoyad = "session_full_name";
         private const string AnahtarBirimId = "session_unit_id";
         private const string AnahtarServisId = "session_service_id";
+        private const string AnahtarVeliId = "session_veli_id";
         private const string AnahtarRol = "session_rol";
         private const string AnahtarYetkiToken = "session_auth_token";
         private const string AnahtarGirisZamani = "session_login_time";
@@ -49,13 +51,14 @@ namespace OgrenciBilgiSistemi.Mobil.Services
         /// <summary>
         /// Giriş başarılı olduğunda tüm oturum bilgilerini SecureStorage'a kaydeder.
         /// </summary>
-        public static async Task OturumAyarlaAsync(int kullaniciId, string adSoyad, int? birimId, int rol = 2, int? servisId = null, string yetkiToken = null)
+        public static async Task OturumAyarlaAsync(int kullaniciId, string adSoyad, int? birimId, int rol = 2, int? servisId = null, int? veliId = null, string yetkiToken = null)
         {
             _kullaniciId = kullaniciId;
             _adSoyad = string.IsNullOrEmpty(adSoyad) ? "Kullanıcı" : adSoyad;
             _birimId = birimId;
             _rol = rol;
             _servisId = servisId;
+            _veliId = veliId;
             _yetkiToken = yetkiToken;
             _yuklendi = true;
 
@@ -71,6 +74,9 @@ namespace OgrenciBilgiSistemi.Mobil.Services
 
                 if (servisId.HasValue)
                     await SecureStorage.Default.SetAsync(AnahtarServisId, servisId.Value.ToString());
+
+                if (veliId.HasValue)
+                    await SecureStorage.Default.SetAsync(AnahtarVeliId, veliId.Value.ToString());
 
                 if (!string.IsNullOrEmpty(yetkiToken))
                     await SecureStorage.Default.SetAsync(AnahtarYetkiToken, yetkiToken);
@@ -114,6 +120,10 @@ namespace OgrenciBilgiSistemi.Mobil.Services
                 if (!string.IsNullOrEmpty(servisIdStr) && int.TryParse(servisIdStr, out var sid))
                     _servisId = sid;
 
+                var veliIdStr = await SecureStorage.Default.GetAsync(AnahtarVeliId);
+                if (!string.IsNullOrEmpty(veliIdStr) && int.TryParse(veliIdStr, out var vid))
+                    _veliId = vid;
+
                 var rolStr = await SecureStorage.Default.GetAsync(AnahtarRol);
                 if (!string.IsNullOrEmpty(rolStr) && int.TryParse(rolStr, out var parsedRol))
                     _rol = parsedRol;
@@ -137,6 +147,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
             _adSoyad = "Kullanıcı";
             _birimId = null;
             _servisId = null;
+            _veliId = null;
             _rol = 0;
             _yetkiToken = null;
             _yuklendi = false;
@@ -148,6 +159,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
                 SecureStorage.Default.Remove(AnahtarAdSoyad);
                 SecureStorage.Default.Remove(AnahtarBirimId);
                 SecureStorage.Default.Remove(AnahtarServisId);
+                SecureStorage.Default.Remove(AnahtarVeliId);
                 SecureStorage.Default.Remove(AnahtarRol);
                 SecureStorage.Default.Remove(AnahtarYetkiToken);
                 SecureStorage.Default.Remove(AnahtarGirisZamani);
@@ -186,8 +198,14 @@ namespace OgrenciBilgiSistemi.Mobil.Services
             set => _servisId = value;
         }
 
+        public static int? VeliId
+        {
+            get => _veliId;
+            set => _veliId = value;
+        }
+
         /// <summary>
-        /// Kullanıcı rolü: 1 = Admin, 2 = Ogretmen, 3 = Sofor
+        /// Kullanıcı rolü: 2 = Ogretmen, 3 = Sofor, 4 = Veli
         /// </summary>
         public static int Rol
         {
@@ -196,6 +214,8 @@ namespace OgrenciBilgiSistemi.Mobil.Services
         }
 
         public static bool SoforMu => _rol == 3;
+        public static bool VeliMi => _rol == 4;
+        public static bool OgretmenMi => _rol == 2;
 
         public static string YetkiToken
         {

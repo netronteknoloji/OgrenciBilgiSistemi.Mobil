@@ -9,5 +9,6 @@ namespace OgrenciBilgiSistemi.Mobil.Models
         public bool KullaniciDurum { get; set; }
         public int? BirimId { get; set; }
         public int? ServisId { get; set; }
+        public int? OgrenciVeliId { get; set; }
     }
 }

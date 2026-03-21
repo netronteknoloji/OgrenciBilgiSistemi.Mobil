@@ -53,6 +53,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
                             birimId: kullanici.BirimId,
                             rol: kullanici.Rol,
                             servisId: kullanici.ServisId,
+                            veliId: kullanici.OgrenciVeliId,
                             yetkiToken: token
                         );
 

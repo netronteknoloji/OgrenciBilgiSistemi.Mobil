@@ -20,4 +20,8 @@
     <ShellContent
         ContentTemplate="{DataTemplate views:ServisEkraniView}"
         Route="ServisEkraniView" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:VeliAnaSayfaView}"
+        Route="VeliAnaSayfaView" />
 </Shell>
