@@ -62,23 +62,20 @@
       - name: Build IPA (Release)
         script: |
           set -e
-
           SIGNING_IDENTITY=$(security find-identity -v -p codesigning | grep "Apple Distribution" | head -1 | awk -F'"' '{print $2}')
-          echo "Signing identity: $SIGNING_IDENTITY"
-
-          APP_BUILD_NUMBER=$CM_BUILD_NUMBER
+          APP_BUILD_NUMBER=$((CM_BUILD_NUMBER + 10))
           echo "Build number: $APP_BUILD_NUMBER"
-
+    
           "$DOTNET" publish "$PROJECT_PATH" \
-            -c Release \
-            -f "$IOS_TFM" \
-            -r ios-arm64 \
-            --no-restore \
-            /p:ArchiveOnBuild=true \
-            /p:BuildIpa=true \
-            /p:ApplicationVersion=$APP_BUILD_NUMBER \
-            /p:ApplicationDisplayVersion=1.1.9 \
-            /p:CodesignKey="$SIGNING_IDENTITY"
+          -c Release \
+          -f "$IOS_TFM" \
+          -r ios-arm64 \
+          --no-restore \
+          /p:ArchiveOnBuild=true \
+          /p:BuildIpa=true \
+          /p:ApplicationVersion=$APP_BUILD_NUMBER \
+          /p:ApplicationDisplayVersion=1.1.10 \
+          /p:CodesignKey="$SIGNING_IDENTITY"
 
     artifacts:
       - "**/*.ipa"
