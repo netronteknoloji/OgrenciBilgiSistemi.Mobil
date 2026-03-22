@@ -39,7 +39,7 @@
         script: |
           set -e
           rm -rf bin obj
-          "$DOTNET" clean
+          "$DOTNET" clean /p:TargetFramework=$IOS_TFM
 
       - name: Restore NuGet packages
         script: |
@@ -122,7 +122,7 @@
         script: |
           set -e
           rm -rf bin obj
-          "$DOTNET" clean
+          "$DOTNET" clean /p:TargetFramework=$ANDROID_TFM
 
       - name: Restore NuGet packages
         script: |
