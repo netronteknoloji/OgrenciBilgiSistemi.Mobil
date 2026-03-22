@@ -14,7 +14,7 @@
 		<ApplicationTitle>OgrenciBilgiSistemi</ApplicationTitle>
 
 		<ApplicationDisplayVersion>1.2.2</ApplicationDisplayVersion>
-		<ApplicationVersion>4</ApplicationVersion>
+		<ApplicationVersion>5</ApplicationVersion>
 	</PropertyGroup>
 
 	<!-- Platform versiyonları -->
