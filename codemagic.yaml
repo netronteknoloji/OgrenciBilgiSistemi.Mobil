@@ -32,7 +32,7 @@
       - name: Install MAUI workloads
         script: |
           set -e
-          "$DOTNET" workload install maui-ios --skip-manifest-update
+          "$DOTNET" workload install maui-ios maui-android --skip-manifest-update
           "$DOTNET" workload list
 
       - name: Restore NuGet packages
