@@ -66,7 +66,7 @@
           SIGNING_IDENTITY=$(security find-identity -v -p codesigning | grep "Apple Distribution" | head -1 | awk -F'"' '{print $2}')
           echo "Signing identity: $SIGNING_IDENTITY"
 
-          APP_BUILD_NUMBER=$(($CM_BUILD_NUMBER + 1))
+          APP_BUILD_NUMBER=$(($CM_BUILD_NUMBER + 10))
           echo "Build number: $APP_BUILD_NUMBER"
 
           "$DOTNET" publish "$PROJECT_PATH" \
@@ -136,7 +136,7 @@
         script: |
           set -e
 
-          APP_BUILD_NUMBER=$(($CM_BUILD_NUMBER + 1))
+          APP_BUILD_NUMBER=$(($CM_BUILD_NUMBER + 10))
           echo "Build number: $APP_BUILD_NUMBER"
 
           if [ -z "$CM_KEYSTORE_PATH" ]; then
