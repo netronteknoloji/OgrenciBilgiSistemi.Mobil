@@ -10,8 +10,8 @@ namespace OgrenciBilgiSistemi.Mobil.Models
         public int OgrenciCikisDurumu { get; set; }
         public bool OgrenciDurum { get; set; }
         public int? BirimId { get; set; }
-        public int? PersonelId { get; set; }
-        public int? OgrenciVeliId { get; set; }
+        public int? KullaniciId { get; set; }
+        public int? VeliId { get; set; }
         public int? ServisId { get; set; }
 
         // Mobil'e özel alanlar — API'nin detay endpoint'inden Dictionary olarak doldurulur

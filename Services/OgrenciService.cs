@@ -108,7 +108,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
                 var model = new
                 {
                     SinifId = sinifId,
-                    PersonelId = ogretmenId,
+                    KullaniciId = ogretmenId,
                     DersNumarasi = dersNumarasi,
                     Kayitlar = yoklamaVerisi.Select(a => new
                     {
