@@ -1,17 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android;net9.0-ios18.0</TargetFrameworks>
+		<TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<OutputType>Exe</OutputType>
+
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+
 		<ApplicationId>com.netronyazilim.ogrencibilgisistemi</ApplicationId>
 		<ApplicationTitle>OgrenciBilgiSistemi</ApplicationTitle>
+
 		<ApplicationDisplayVersion>1.1.8</ApplicationDisplayVersion>
 		<ApplicationVersion>9</ApplicationVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<!-- Platform versiyonları -->
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-ios'">
+		<SupportedOSPlatformVersion>14.2</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+		<SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -28,4 +40,5 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 	</ItemGroup>
+
 </Project>
