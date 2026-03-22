@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using System.Text.Json;
 using OgrenciBilgiSistemi.Mobil.Models;
 
@@ -52,6 +53,60 @@ namespace OgrenciBilgiSistemi.Mobil.Services
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Belirtilen servisin bugünkü yoklamasını periyoda göre API'den getirir.
+        /// </summary>
+        public async Task<Dictionary<int, int>> MevcutServisYoklamaGetir(int servisId, int periyot)
+        {
+            if (KullaniciOturum.DemoModuMu)
+                return new Dictionary<int, int>();
+
+            try
+            {
+                var response = await _httpClient.GetFromJsonAsync<Dictionary<int, int>>($"{BaseUrl}servisler/{servisId}/yoklama/{periyot}");
+                return response ?? new Dictionary<int, int>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[API HATASI]: {ex.Message}");
+            }
+
+            return new Dictionary<int, int>();
+        }
+
+        /// <summary>
+        /// Servis yoklamasını toplu olarak API'ye göndererek kaydeder.
+        /// </summary>
+        public async Task ServisYoklamaKaydet(IEnumerable<(int OgrenciId, int DurumId)> yoklamaVerisi, int servisId, int kullaniciId, int periyot)
+        {
+            if (KullaniciOturum.DemoModuMu)
+                return;
+
+            try
+            {
+                var model = new
+                {
+                    ServisId = servisId,
+                    KullaniciId = kullaniciId,
+                    Periyot = periyot,
+                    Kayitlar = yoklamaVerisi.Select(a => new
+                    {
+                        OgrenciId = a.OgrenciId,
+                        DurumId = a.DurumId
+                    }).ToList()
+                };
+
+                var response = await _httpClient.PostAsJsonAsync($"{BaseUrl}servisler/yoklama-kaydet", model);
+
+                if (!await YanitDurumuIsle(response))
+                    throw new Exception("Servis yoklaması kaydedilemedi.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Servis yoklama kaydı sırasında hata oluştu: {ex.Message}");
+            }
         }
     }
 }
