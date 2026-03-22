@@ -45,7 +45,8 @@
         script: |
           set -e
           "$DOTNET" restore "$PROJECT_PATH" \
-            /p:TargetFramework=$IOS_TFM
+            /p:TargetFramework=$IOS_TFM \
+            -r ios-arm64
 
       - name: Setup iOS code signing
         script: |
