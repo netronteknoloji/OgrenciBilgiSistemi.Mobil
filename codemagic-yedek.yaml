@@ -32,7 +32,7 @@
       - name: Install MAUI workloads
         script: |
           set -e
-          "$DOTNET" workload install maui-ios maui --skip-manifest-update
+          "$DOTNET" workload install maui-ios maui-android --skip-manifest-update
           "$DOTNET" workload list
 
       - name: Restore NuGet packages
@@ -57,11 +57,9 @@
         script: |
           set -e
 
-          # Signing identity bul
           SIGNING_IDENTITY=$(security find-identity -v -p codesigning | grep "Apple Distribution" | head -1 | awk -F'"' '{print $2}')
           echo "Signing identity: $SIGNING_IDENTITY"
 
-          # Profile UUID bul
           PROFILES_DIR="$HOME/Library/MobileDevice/Provisioning Profiles"
           PROFILE_UUID=""
           for f in "$PROFILES_DIR"/*.mobileprovision; do
@@ -79,12 +77,9 @@
             exit 1
           fi
 
-          # App Store'da zaten 1 var; CM_BUILD_NUMBER offset ile her build
-          # önceki versiyondan yüksek olacak şekilde hesaplanır.
-          APP_BUILD_NUMBER=$(($CM_BUILD_NUMBER + 1))
+          APP_BUILD_NUMBER=$(($CM_BUILD_NUMBER + 9))
           echo "CFBundleVersion: $APP_BUILD_NUMBER"
 
-          # Build + Sign (--no-restore YOK!)
           "$DOTNET" publish "$PROJECT_PATH" \
             -c Release \
             -f "$IOS_TFM" \
@@ -144,11 +139,11 @@
         script: |
           set -e
 
-          APP_BUILD_NUMBER=$(($CM_BUILD_NUMBER + 1))
+          APP_BUILD_NUMBER=$(($CM_BUILD_NUMBER + 9))
           echo "Build number: $APP_BUILD_NUMBER"
 
           if [ -z "$CM_KEYSTORE_PATH" ]; then
-            echo "ERROR: Android keystore bulunamadi! Codemagic Code Signing ayarlarini kontrol edin."
+            echo "ERROR: Android keystore bulunamadi!"
             exit 1
           fi
 
