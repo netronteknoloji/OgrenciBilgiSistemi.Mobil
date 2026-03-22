@@ -72,6 +72,7 @@
             -c Release \
             -f "$IOS_TFM" \
             -r ios-arm64 \
+            --no-restore \
             /p:ArchiveOnBuild=true \
             /p:BuildIpa=true \
             /p:ApplicationVersion=$APP_BUILD_NUMBER \
@@ -145,6 +146,7 @@
           "$DOTNET" publish "$PROJECT_PATH" \
             -c Release \
             -f "$ANDROID_TFM" \
+            --no-restore \
             /p:RuntimeIdentifier=android-arm64 \
             /p:AndroidPackageFormat=aab \
             /p:ApplicationVersion=$APP_BUILD_NUMBER \
