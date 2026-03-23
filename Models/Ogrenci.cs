@@ -1,4 +1,4 @@
-using OgrenciBilgiSistemi.Shared.Enums;
+using OgrenciBilgiSistemi.Mobil.Enums;
 
 namespace OgrenciBilgiSistemi.Mobil.Models
 {
