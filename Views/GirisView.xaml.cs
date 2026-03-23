@@ -56,7 +56,7 @@ namespace OgrenciBilgiSistemi.Mobil.Views
                 if (isSuccess)
                 {
                     // Mobilde admin girişi desteklenmez
-                    if (KullaniciOturum.Rol == 1)
+                    if (KullaniciOturum.Rol == OgrenciBilgiSistemi.Shared.Enums.KullaniciRolu.Admin)
                     {
                         await KullaniciOturum.OturumTemizleAsync();
                         await DisplayAlert("Uyarı", "Bu uygulama yönetici girişi desteklememektedir.", "Tamam");

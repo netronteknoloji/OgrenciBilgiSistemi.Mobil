@@ -1,6 +1,7 @@
 #region Kütüphane Referansları
 using System.Net.Http.Json;
 using OgrenciBilgiSistemi.Mobil.Models;
+using OgrenciBilgiSistemi.Shared.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -162,11 +163,11 @@ namespace OgrenciBilgiSistemi.Mobil.Services
 
             return new List<Ogrenci>
             {
-                new Ogrenci { OgrenciId = baseId - 1, OgrenciAdSoyad = "Ahmet Yılmaz", OgrenciNo = 101, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = 0, SinifAdi = sinifAdi, VeliAdSoyad = "Mehmet Yılmaz", VeliTelefon = "0532 111 22 33" },
-                new Ogrenci { OgrenciId = baseId - 2, OgrenciAdSoyad = "Ayşe Kaya", OgrenciNo = 102, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = 1, SinifAdi = sinifAdi, VeliAdSoyad = "Fatma Kaya", VeliTelefon = "0533 222 33 44" },
-                new Ogrenci { OgrenciId = baseId - 3, OgrenciAdSoyad = "Mehmet Demir", OgrenciNo = 103, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = 2, SinifAdi = sinifAdi, VeliAdSoyad = "Ali Demir", VeliTelefon = "0534 333 44 55" },
-                new Ogrenci { OgrenciId = baseId - 4, OgrenciAdSoyad = "Zeynep Çelik", OgrenciNo = 104, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = 0, SinifAdi = sinifAdi, VeliAdSoyad = "Hatice Çelik", VeliTelefon = "0535 444 55 66" },
-                new Ogrenci { OgrenciId = baseId - 5, OgrenciAdSoyad = "Can Şahin", OgrenciNo = 105, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = 1, SinifAdi = sinifAdi, VeliAdSoyad = "Hüseyin Şahin", VeliTelefon = "0536 555 66 77" }
+                new Ogrenci { OgrenciId = baseId - 1, OgrenciAdSoyad = "Ahmet Yılmaz", OgrenciNo = 101, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = OglenCikisDurumu.Evet, SinifAdi = sinifAdi },
+                new Ogrenci { OgrenciId = baseId - 2, OgrenciAdSoyad = "Ayşe Kaya", OgrenciNo = 102, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = OglenCikisDurumu.Hayir, SinifAdi = sinifAdi },
+                new Ogrenci { OgrenciId = baseId - 3, OgrenciAdSoyad = "Mehmet Demir", OgrenciNo = 103, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = OglenCikisDurumu.Evet, SinifAdi = sinifAdi },
+                new Ogrenci { OgrenciId = baseId - 4, OgrenciAdSoyad = "Zeynep Çelik", OgrenciNo = 104, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = OglenCikisDurumu.Evet, SinifAdi = sinifAdi },
+                new Ogrenci { OgrenciId = baseId - 5, OgrenciAdSoyad = "Can Şahin", OgrenciNo = 105, OgrenciDurum = true, BirimId = sinifId, OgrenciCikisDurumu = OglenCikisDurumu.Hayir, SinifAdi = sinifAdi }
             };
         }
 
@@ -174,11 +175,11 @@ namespace OgrenciBilgiSistemi.Mobil.Services
         {
             return new Dictionary<string, string>
             {
-                { "ogrenciAdSoyad", "Demo Öğrenci" },
-                { "birimAd", "Demo Sınıf" },
-                { "veliAdSoyad", "Demo Veli" },
-                { "veliTelefon", "0532 000 00 00" },
-                { "servisAdi", "Demo Servis" }
+                { "OgrenciAdSoyad", "Demo Öğrenci" },
+                { "BirimAd", "Demo Sınıf" },
+                { "VeliAdSoyad", "Demo Veli" },
+                { "VeliTelefon", "0532 000 00 00" },
+                { "Plaka", "34 ABC 123" }
             };
         }
 

@@ -1,3 +1,5 @@
+using OgrenciBilgiSistemi.Shared.Enums;
+
 namespace OgrenciBilgiSistemi.Mobil.Models
 {
     public class Kullanici
@@ -5,9 +7,8 @@ namespace OgrenciBilgiSistemi.Mobil.Models
         public int KullaniciId { get; set; }
         public string KullaniciAdi { get; set; }
         public string? AdSoyad { get; set; }
-        public int Rol { get; set; }
+        public KullaniciRolu Rol { get; set; }
         public bool KullaniciDurum { get; set; }
-        public int? BirimId { get; set; }
         public bool VeliProfilVar { get; set; }
         public bool ServisProfilVar { get; set; }
     }

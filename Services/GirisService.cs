@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using OgrenciBilgiSistemi.Mobil.Models;
+using OgrenciBilgiSistemi.Shared.Enums;
 
 namespace OgrenciBilgiSistemi.Mobil.Services
 {
@@ -48,15 +49,15 @@ namespace OgrenciBilgiSistemi.Mobil.Services
                             : kullanici.KullaniciAdi;
 
                         // Veli rolünde veliId = KullaniciId (1:1 ilişki)
-                        int? veliId = kullanici.Rol == 4 ? kullanici.KullaniciId : null;
+                        int? veliId = kullanici.Rol == KullaniciRolu.Veli ? kullanici.KullaniciId : null;
 
                         // Sofor rolünde servisId = KullaniciId (1:1 ilişki)
-                        int? servisId = kullanici.Rol == 3 ? kullanici.KullaniciId : null;
+                        int? servisId = kullanici.Rol == KullaniciRolu.Sofor ? kullanici.KullaniciId : null;
 
                         await KullaniciOturum.OturumAyarlaAsync(
                             kullaniciId: kullanici.KullaniciId,
                             adSoyad: gorunenAd,
-                            birimId: kullanici.BirimId,
+                            birimId: null,
                             rol: kullanici.Rol,
                             servisId: servisId,
                             veliId: veliId,

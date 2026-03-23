@@ -1,3 +1,5 @@
+using OgrenciBilgiSistemi.Shared.Enums;
+
 namespace OgrenciBilgiSistemi.Mobil.Models
 {
     public class Ogrenci
@@ -7,16 +9,14 @@ namespace OgrenciBilgiSistemi.Mobil.Models
         public int OgrenciNo { get; set; }
         public string? OgrenciGorsel { get; set; }
         public string? OgrenciKartNo { get; set; }
-        public int OgrenciCikisDurumu { get; set; }
+        public OglenCikisDurumu OgrenciCikisDurumu { get; set; }
         public bool OgrenciDurum { get; set; }
         public int? BirimId { get; set; }
-        public int? KullaniciId { get; set; }
+        public int? OgretmenId { get; set; }
         public int? VeliId { get; set; }
         public int? ServisId { get; set; }
 
-        // Mobil'e özel alanlar — API'nin detay endpoint'inden Dictionary olarak doldurulur
+        // Mobil'e özel — API'nin detay endpoint'inden Dictionary olarak doldurulur
         public string? SinifAdi { get; set; }
-        public string? VeliAdSoyad { get; set; }
-        public string? VeliTelefon { get; set; }
     }
 }

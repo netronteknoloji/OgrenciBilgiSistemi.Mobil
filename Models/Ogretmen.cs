@@ -7,6 +7,7 @@ namespace OgrenciBilgiSistemi.Mobil.Models
         public string? GorselPath { get; set; }
         public bool KullaniciDurum { get; set; }
         public int? BirimId { get; set; }
+        public string? Email { get; set; }
         public string? KartNo { get; set; }
     }
 }

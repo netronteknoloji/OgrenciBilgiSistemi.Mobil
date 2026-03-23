@@ -1,3 +1,5 @@
+using OgrenciBilgiSistemi.Shared.Enums;
+
 namespace OgrenciBilgiSistemi.Mobil.Services
 {
     /// <summary>
@@ -12,7 +14,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
         private static int? _birimId;
         private static int? _servisId;
         private static int? _veliId;
-        private static int _rol;
+        private static KullaniciRolu _rol;
         private static string _yetkiToken;
         private static bool _yuklendi;
 
@@ -51,7 +53,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
         /// <summary>
         /// Giriş başarılı olduğunda tüm oturum bilgilerini SecureStorage'a kaydeder.
         /// </summary>
-        public static async Task OturumAyarlaAsync(int kullaniciId, string adSoyad, int? birimId, int rol = 2, int? servisId = null, int? veliId = null, string yetkiToken = null)
+        public static async Task OturumAyarlaAsync(int kullaniciId, string adSoyad, int? birimId, KullaniciRolu rol = KullaniciRolu.Ogretmen, int? servisId = null, int? veliId = null, string yetkiToken = null)
         {
             _kullaniciId = kullaniciId;
             _adSoyad = string.IsNullOrEmpty(adSoyad) ? "Kullanıcı" : adSoyad;
@@ -66,7 +68,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
             {
                 await SecureStorage.Default.SetAsync(AnahtarKullaniciId, kullaniciId.ToString());
                 await SecureStorage.Default.SetAsync(AnahtarAdSoyad, _adSoyad);
-                await SecureStorage.Default.SetAsync(AnahtarRol, rol.ToString());
+                await SecureStorage.Default.SetAsync(AnahtarRol, ((int)rol).ToString());
                 await SecureStorage.Default.SetAsync(AnahtarGirisZamani, DateTime.UtcNow.ToString("O"));
 
                 if (birimId.HasValue)
@@ -126,7 +128,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
 
                 var rolStr = await SecureStorage.Default.GetAsync(AnahtarRol);
                 if (!string.IsNullOrEmpty(rolStr) && int.TryParse(rolStr, out var parsedRol))
-                    _rol = parsedRol;
+                    _rol = (KullaniciRolu)parsedRol;
 
                 _yetkiToken = await SecureStorage.Default.GetAsync(AnahtarYetkiToken);
 
@@ -204,18 +206,15 @@ namespace OgrenciBilgiSistemi.Mobil.Services
             set => _veliId = value;
         }
 
-        /// <summary>
-        /// Kullanıcı rolü: 2 = Ogretmen, 3 = Sofor, 4 = Veli
-        /// </summary>
-        public static int Rol
+        public static KullaniciRolu Rol
         {
             get => _rol;
             set => _rol = value;
         }
 
-        public static bool SoforMu => _rol == 3;
-        public static bool VeliMi => _rol == 4;
-        public static bool OgretmenMi => _rol == 2;
+        public static bool SoforMu => _rol == KullaniciRolu.Sofor;
+        public static bool VeliMi => _rol == KullaniciRolu.Veli;
+        public static bool OgretmenMi => _rol == KullaniciRolu.Ogretmen;
 
         public static string YetkiToken
         {

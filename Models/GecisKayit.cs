@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using OgrenciBilgiSistemi.Shared.Enums;
 
 namespace OgrenciBilgiSistemi.Mobil.Models
 {
@@ -31,7 +32,7 @@ namespace OgrenciBilgiSistemi.Mobil.Models
         public string? GecisTipi { get; set; }
 
         [JsonPropertyName("istasyonTipi")]
-        public int IstasyonTipi { get; set; }
+        public IstasyonTipi IstasyonTipi { get; set; }
 
         [JsonPropertyName("cihazAdi")]
         public string? CihazAdi { get; set; }
