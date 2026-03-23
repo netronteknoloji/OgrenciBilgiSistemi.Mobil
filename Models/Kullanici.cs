@@ -8,7 +8,7 @@ namespace OgrenciBilgiSistemi.Mobil.Models
         public int Rol { get; set; }
         public bool KullaniciDurum { get; set; }
         public int? BirimId { get; set; }
-        public int? ServisId { get; set; }
-        public int? OgrenciVeliId { get; set; }
+        public bool VeliProfilVar { get; set; }
+        public bool ServisProfilVar { get; set; }
     }
 }

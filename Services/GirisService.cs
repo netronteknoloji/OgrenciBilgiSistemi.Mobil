@@ -47,13 +47,19 @@ namespace OgrenciBilgiSistemi.Mobil.Services
                             ? kullanici.AdSoyad
                             : kullanici.KullaniciAdi;
 
+                        // Veli rolünde veliId = KullaniciId (1:1 ilişki)
+                        int? veliId = kullanici.Rol == 4 ? kullanici.KullaniciId : null;
+
+                        // Sofor rolünde servisId = KullaniciId (1:1 ilişki)
+                        int? servisId = kullanici.Rol == 3 ? kullanici.KullaniciId : null;
+
                         await KullaniciOturum.OturumAyarlaAsync(
                             kullaniciId: kullanici.KullaniciId,
                             adSoyad: gorunenAd,
                             birimId: kullanici.BirimId,
                             rol: kullanici.Rol,
-                            servisId: kullanici.ServisId,
-                            veliId: kullanici.OgrenciVeliId,
+                            servisId: servisId,
+                            veliId: veliId,
                             yetkiToken: token
                         );
 

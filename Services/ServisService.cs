@@ -79,7 +79,7 @@ namespace OgrenciBilgiSistemi.Mobil.Services
         /// <summary>
         /// Servis yoklamasını toplu olarak API'ye göndererek kaydeder.
         /// </summary>
-        public async Task ServisYoklamaKaydet(IEnumerable<(int OgrenciId, int DurumId)> yoklamaVerisi, int servisId, int kullaniciId, int periyot)
+        public async Task ServisYoklamaKaydet(IEnumerable<(int OgrenciId, int DurumId)> yoklamaVerisi, int kullaniciId, int periyot)
         {
             if (KullaniciOturum.DemoModuMu)
                 return;
@@ -88,7 +88,6 @@ namespace OgrenciBilgiSistemi.Mobil.Services
             {
                 var model = new
                 {
-                    ServisId = servisId,
                     KullaniciId = kullaniciId,
                     Periyot = periyot,
                     Kayitlar = yoklamaVerisi.Select(a => new

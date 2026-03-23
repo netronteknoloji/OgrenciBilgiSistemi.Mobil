@@ -1,8 +1,8 @@
 namespace OgrenciBilgiSistemi.Mobil.Models
 {
-    public class OgrenciVeli
+    public class VeliProfil
     {
-        public int OgrenciVeliId { get; set; }
+        public int KullaniciId { get; set; }
         public string? VeliAdSoyad { get; set; }
         public string? VeliTelefon { get; set; }
         public string? VeliAdres { get; set; }
