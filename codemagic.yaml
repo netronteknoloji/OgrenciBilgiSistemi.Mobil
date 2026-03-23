@@ -63,8 +63,10 @@
         script: |
           set -e
           SIGNING_IDENTITY=$(security find-identity -v -p codesigning | grep "Apple Distribution" | head -1 | awk -F'"' '{print $2}')
-          APP_BUILD_NUMBER=$((CM_BUILD_NUMBER + 10))
-          echo "Build number: $APP_BUILD_NUMBER"
+
+          LATEST_BUILD=$(app-store-connect get-latest-testflight-build-number "$BUNDLE_ID" || echo "0")
+          APP_BUILD_NUMBER=$((LATEST_BUILD + 1))
+          echo "Latest TestFlight build: $LATEST_BUILD -> New build: $APP_BUILD_NUMBER"
     
           "$DOTNET" publish "$PROJECT_PATH" \
           -c Release \
